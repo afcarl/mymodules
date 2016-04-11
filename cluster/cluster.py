@@ -1,5 +1,6 @@
 from subprocess import call
 from ipyparallel import Client
+import time
 
 bubbles = {'ipython_dir':'/cita/d/sunny-home/dtamayo/.ipython', 'sshserver':'bubbles'}
 ricky = {'ipython_dir':'/cita/d/sunny-home/dtamayo/.ipython', 'sshserver':'ricky'}
@@ -13,6 +14,7 @@ hosts = {'bubbles':bubbles, 'ricky':ricky, 'homard':homard, 'lobster':lobster, '
 
 def start_cluster(host, Nengines):
 	call("ssh -f {0} \"bash -tlc 'ipcluster start -n {1}'\"".format(host, Nengines), shell=True)
+	time.sleep(10)
 	return Client(**hosts[host])
 
 def shutdown_cluster(host, client):
